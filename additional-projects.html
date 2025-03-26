@@ -6,25 +6,25 @@
     <title>Additional Projects - Kazura Collins Portfolio</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="assets/images/apple-icon.png">
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="additional-projects.css">
-    <link rel="stylesheet" href="responsive.css">
-    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/additional-projects.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
+    <link rel="stylesheet" href="./styles/contact.css">
 </head>
 <body>
     <!-- Header (similar al de index.html) -->
     <header class="header">
         <div class="header-content">
-          <div class="logo"><img src="assets/images/kazulogo.png" alt="KAZURA"></div>
+          <div class="logo"><a href="index.html"><img src="assets/images/kazulogo.png" alt="KAZURA"></a></div>
           <div class="menu-toggle">☰</div>
           <nav>
             <ul>
-              <li><a href="index.html" data-i18n="home">Home</a></li>
-              <li><a href="#about" data-i18n="about">About</a></li>
-              <li><a href="#experience" data-i18n="experience">Experience</a></li>
-              <li><a href="#projects" data-i18n="projects1">Projects</a></li>
-              <li><a href="additional-projects.html" data-i18n="additionalProjects">Additional Projects</a></li>
-              <li><a href="#contact" data-i18n="contact">Contact me</a></li>
+              <li><a href="index.html#home" data-i18n="home">Home</a></li>
+              <li><a href="index.html#about" data-i18n="about">About</a></li>
+              <li><a href="index.html#experience" data-i18n="experience">Experience</a></li>
+              <li><a href="index.html#projects" data-i18n="projects1">Projects</a></li>
+              <li class="hide-on-mobile"><a href="additional-projects.html" data-i18n="additionalProjects1">Additional Projects</a></li>
+              <li><a href="index.html#contact" data-i18n="contact">Contact me</a></li>
               <li class="language-selector">
                 <select id="languageSelector">
                   <option value="en">English</option>
@@ -34,7 +34,7 @@
             </ul>
           </nav>
         </div>
-    </header>
+      </header>
 
     <main>
         <section id="additional-projects" class="additional-projects-section">
@@ -80,10 +80,32 @@
                 </div>
             </div>
         </section>
+
+        <!-- Nueva sección de Proyectos Implementados -->
+        <section id="implemented-projects" class="implemented-projects-section">
+            <div class="main-container-projects">
+                <div class="flex-column-afb">
+                    <span class="projects" data-i18n="implementedProjects">Implemented Projects</span>
+                    <span class="project-title">Project 1</span>
+                    <span class="project-title">Project 2</span>
+                    <span class="project-title">Project 3</span>
+                    <!-- Añade más proyectos según necesites -->
+                </div>
+                <div class="flex-column">
+                    <h3 class="current-project-title"></h3>
+                    <div class="image"></div>
+                    <span class="project-description">
+                        Project description will appear here...
+                    </span>
+                    <a href="#" class="linkz-button" target="_blank" data-i18n="linkz">More info</a>
+                </div>
+            </div>
+        </section>
+        
     </main>
 
     <footer>
-        <p class="copyright">&copy; 2024 Kazura Collins. <span data-i18n="copyright">All rights reserved.</span></p>
+        <p class="copyright">&copy; 2025 Kazura Collins. <span data-i18n="copyright">All rights reserved.</span></p>
     </footer>
 
     <script src="additional-projects.js"></script>

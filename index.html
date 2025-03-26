@@ -14,14 +14,14 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
     <link rel="apple-touch-icon" href="assets/images/apple-icon.png">
-    <link rel="stylesheet" href="global.css" />
-    <link rel="stylesheet" href="home.css" />
-    <link rel="stylesheet" href="about.css" />
-    <link rel="stylesheet" href="experience.css" />
-    <link rel="stylesheet" href="projects.css" />
-    <link rel="stylesheet" href="contact.css" />
-    <link rel="stylesheet" href="responsive.css" />
-    <link rel="stylesheet" href="modal.css" />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/home.css" />
+    <link rel="stylesheet" href="./styles/about.css" />
+    <link rel="stylesheet" href="./styles/experience.css" />
+    <link rel="stylesheet" href="./styles/projects.css" />
+    <link rel="stylesheet" href="./styles/contact.css" />
+    <link rel="stylesheet" href="./styles/responsive.css" />
+    <link rel="stylesheet" href="./styles/modal.css" />
     <script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
   </head>
   <body>
@@ -68,7 +68,7 @@
           <div class="background">
             <span class="kazura-collins">Kazura Collins</span>
             <div class="circles"></div>
-            <span class="span-2024">2024</span>
+            <span class="span-2024">2025</span>
             <span class="span-isaac-montano" data-i18n="whoIsIsaac">Who's Isaac Montaño?</span>
             <span class="span-info">08/08/2003 · Colombian<br /></span>
             <span class="span-multimedia-design" data-i18n="multimediaDesigner">MULTIMEDIA DESIGNER · UX DESIGNER · VIDEO EDITOR</span>
@@ -172,7 +172,7 @@
               ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
               lorem ipsum lorem ipsum lorem ipsum
             </span>
-            <a href="#" class="behance-button" target="_blank">Ver en Behance</a>
+            <a href="#" class="behance-button" target="_blank" data-i18n="viewOnBehance">Ver en Behance</a>
           </div>
         </div>
       </section>
@@ -186,13 +186,13 @@
             <p><span data-i18n="sendEmail">Send me an email:</span> <a href="mailto:kazura.icesi@gmail.com">kazura.icesi@gmail.com</a></p>
           </div>
           <div class="social-links">
-            <a href="https://www.linkedin.com/tu-perfil" target="_blank" class="social-icon linkedin">
+            <a href="https://www.linkedin.com/in/isaac-monta%C3%B1o/" target="_blank" class="social-icon linkedin">
               <img src="assets/images/linked.png" alt="LinkedIn">
             </a>
-            <a href="https://www.youtube.com/tu-canal" target="_blank" class="social-icon youtube">
-              <img src="assets/images/yt.png" alt="YouTube">
+            <!-- <a href="https://www.youtube.com/tu-canal" target="_blank" class="social-icon youtube">
+              <img src="assets/images/yt.png" alt="YouTube"> -->
             </a>
-            <a href="https://www.behance.net/kazucollins" target="_blank" class="social-icon behance">
+            <a href="https://www.behance.net/IsaacMont" target="_blank" class="social-icon behance">
               <img src="assets/images/behance.png" alt="Behance">
             </a>
           </div>
@@ -201,18 +201,22 @@
     </main>
 
     <footer>
-      <p class="copyright">&copy; 2024 Kazura Collins. <span data-i18n="copyright">All rights reserved.</span></p>
+      <p class="copyright">&copy; 2025 Kazura Collins. <span data-i18n="copyright">All rights reserved.</span></p>
   </footer>
 
 
-    <div id="cvModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <img id="cvImage" src="assets/images/CV-Isaac-Montano.png" alt="CV de Isaac Montaño" style="width:100%;">
-        <a href="https://acrobat.adobe.com/id/urn:aaid:sc:US:8971f71d-700c-4a9d-a979-de96244227fd" target="_blank" class="pdf-button" data-i18n="checkPDF">Check PDF</a>
+  <div id="cvModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <!-- Cambiamos a imagen PNG -->
+      <img id="cvImage" src="" alt="CV Preview" style="width:100%; max-height:100vh; object-fit:contain;">
+      <div class="cv-actions">
+        <a id="cvDownloadLink" class="pdf-button" href="#" download data-i18n="downloadCV">Download CV</a>
+        <a id="viewCVOnline" class="pdf-button secondary" href="#" target="_blank" data-i18n="viewCV">View Online</a>
       </div>
     </div>
+  </div>
 
-    <script src="main.js"></script>
+    <script type="module"  src="main.js"></script>
   </body>
 </html>

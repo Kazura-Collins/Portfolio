@@ -1,4 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
+          // Configuración de los CV por idioma
+const cvFiles = {
+  'es': {
+    pdfFilename: 'CV-Isaac-Montaño.pdf',
+    pngFilename: 'CV-Isaac-Montaño.png', // Nuevo campo para la imagen
+    viewUrl: 'https://acrobat.adobe.com/id/urn:aaid:sc:US:8e8bd379-b6cb-461b-aaad-5ab63b8a870f'
+  },
+  'en': {
+    pdfFilename: 'CV-Isaac-Montano.pdf',
+    pngFilename: 'CV-Isaac-Montano.png', // Nuevo campo para la imagen
+    viewUrl: 'https://acrobat.adobe.com/id/urn:aaid:sc:US:2584e934-a5bc-49d6-8e4d-07d836aab052'
+  }
+};
+          
+        // Funcionalidad para el botón de CV
+        const openCVButton = document.getElementById('openCVButton');
+        const modal = document.getElementById('cvModal');
+        const closeButton = modal.querySelector('.close');
+        const cvViewer = document.getElementById('cvViewer');
+        const cvDownloadLink = document.getElementById('cvDownloadLink');
+        const viewCVOnline = document.getElementById('viewCVOnline');
+
     const menuToggle = document.querySelector('.menu-toggle');
     const nav = document.querySelector('nav');
     const navLinks = document.querySelectorAll('nav ul li a');
@@ -80,9 +102,36 @@ document.addEventListener('DOMContentLoaded', function() {
       }, interval);
     }
 
+    function updateCV(language) {
+      const cvConfig = cvFiles[language] || cvFiles['en'];
+      const pdfPath = `assets/PDF/${cvConfig.pdfFilename}`;
+      const pngPath = `assets/PDF/${cvConfig.pngFilename}`;
+      
+      // Actualizar la imagen del CV (PNG)
+      const cvImage = document.getElementById('cvImage');
+      if (cvImage) {
+        cvImage.src = pngPath;
+        cvImage.alt = `CV ${language === 'es' ? 'en Español' : 'in English'}`;
+      }
+      
+      // Actualizar el enlace de descarga (PDF)
+      const cvDownloadLink = document.getElementById('cvDownloadLink');
+      if (cvDownloadLink) {
+        cvDownloadLink.href = pdfPath;
+        cvDownloadLink.download = cvConfig.pdfFilename;
+      }
+      
+      // Actualizar el enlace para ver online (PDF)
+      const viewCVOnline = document.getElementById('viewCVOnline');
+      if (viewCVOnline) {
+        viewCVOnline.href = cvConfig.viewUrl;
+      }
+    }
+
     function updateProject(index, shouldScroll = false) {
       const projectContent = document.querySelector('.flex-column');
       const currentLang = localStorage.getItem('language') || 'en';
+      updateCV(currentLang);
       
       // Fade out
       projectContent.classList.add('fade-out');
@@ -185,73 +234,27 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('nav').classList.remove('active');
       }
     });
-
-    // Funcionalidad para el botón de CV
-const openCVButton = document.getElementById('openCVButton');
-const modal = document.getElementById('cvModal');
-const closeButton = modal.querySelector('.close');
-
-openCVButton.addEventListener('click', function() {
-  modal.style.display = 'block';
-});
-
-closeButton.addEventListener('click', function() {
-  modal.style.display = 'none';
-});
-
-window.addEventListener('click', function(event) {
-  if (event.target == modal) {
-    modal.style.display = 'none';
-  }
-});
-
-// Declarar las variables al inicio del archivo, fuera de cualquier función
-let languageSelector, cvImage;
-
-function initializeCVElements() {
-  if (!languageSelector) languageSelector = document.getElementById('languageSelector');
-  if (!cvImage) cvImage = document.getElementById('cvImage');
-}
-
-function updateCVImage(language) {
-  initializeCVElements();
-  if (language === 'es') {
-    cvImage.src = 'assets/images/CV-Isaac-Montaño.png';
-  } else {
-    cvImage.src = 'assets/images/CV-Isaac-Montano.png'; // Asegúrate de que este archivo exista
-  }
-}
-
-
-    initializeCVElements();
-
-    if (languageSelector) {
-      languageSelector.addEventListener('change', function() {
-        updateCVImage(this.value);
-      });
-    }
-
-    if (openCVButton) {
-      openCVButton.addEventListener('click', function() {
-        updateCVImage(languageSelector.value);
-        modal.style.display = 'block';
-      });
-    }
-
-    if (closeButton) {
-      closeButton.addEventListener('click', function() {
-        modal.style.display = 'none';
-      });
-    }
-
-    window.addEventListener('click', function(event) {
-      if (event.target == modal) {
-        modal.style.display = 'none';
-      }
-    });
-
-    // Actualiza la imagen del CV al cargar la página
-    updateCVImage(languageSelector ? languageSelector.value : 'en');
-
-    // ... resto del código existente ...
-});
+    
+        // Evento para abrir el modal
+        openCVButton.addEventListener('click', function() {
+          const currentLang = localStorage.getItem('language') || 'en';
+          updateCV(currentLang);
+          modal.style.display = 'block';
+        });
+    
+        // Evento para cerrar el modal
+        closeButton.addEventListener('click', function() {
+          modal.style.display = 'none';
+        });
+    
+        // Cerrar modal al hacer clic fuera
+        window.addEventListener('click', function(event) {
+          if (event.target === modal) {
+            modal.style.display = 'none';
+          }
+        });
+    
+        // Actualizar CV cuando cambia el idioma
+        document.getElementById('languageSelector')?.addEventListener('change', function() {
+          updateCV(this.value);
+        }); })
