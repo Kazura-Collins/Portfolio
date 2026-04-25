@@ -4,12 +4,12 @@ const cvFiles = {
   'es': {
     pdfFilename: 'CV-Isaac-Montaño.pdf',
     pngFilename: 'CV-Isaac-Montaño.png', // Nuevo campo para la imagen
-    viewUrl: 'https://acrobat.adobe.com/id/urn:aaid:sc:US:8e8bd379-b6cb-461b-aaad-5ab63b8a870f'
+    viewUrl: 'https://acrobat.adobe.com/id/urn:aaid:sc:US:165cd96c-74ba-43a4-b9f7-a5e65f8151d1'
   },
   'en': {
     pdfFilename: 'CV-Isaac-Montano.pdf',
     pngFilename: 'CV-Isaac-Montano.png', // Nuevo campo para la imagen
-    viewUrl: 'https://acrobat.adobe.com/id/urn:aaid:sc:US:2584e934-a5bc-49d6-8e4d-07d836aab052'
+    viewUrl: 'https://acrobat.adobe.com/id/urn:aaid:sc:US:071a822d-a679-4b67-8b33-7e8045b16e72'
   }
 };
           
