@@ -1,0 +1,105 @@
+@media (min-width: 2000px) {
+    body {
+      --base-width: 1500px;
+      --current-width: 100vw;
+      --scale-factor: calc(var(--current-width) / var(--base-width));
+      
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+  
+    .about-section {
+      transform: scale(var(--scale-factor));
+      transform-origin: center top;
+      width: var(--base-width);
+      margin: 0 auto;
+      padding-top: 60px;
+    }
+  
+    /* Asegura que todos los elementos internos mantengan su tamaño original */
+    .about-section * {
+      transform: none !important;
+    }
+
+    .projects-section {
+      transform: scale(var(--scale-factor));
+      transform-origin: center top;
+      width: var(--base-width);
+      margin: 0 auto;
+      padding: 5% 0;
+    }
+
+    .span-info{
+      display: none;
+    }
+}
+  
+/* PANTALLAS MÁS DE 2K */
+
+@media (min-width: 1600px) {
+    :root {
+      /* Establece un tamaño máximo de fuente aunque la pantalla crezca */
+      --max-font-size: 50px;
+      --subtitle-max-size: 30px;
+      --text-max-size: 20px;
+      --button-text-max-size: 18px;
+
+      --max-container-width: 1500px;
+    }
+  
+    .main-container-about {
+      max-width: 100%; /* O el máximo que consideres adecuado */
+      margin: 0 auto;
+      min-height: 40vh;
+      padding: 40px;
+    }
+  
+    .kazura-collins {
+      font-size: min(4vw, var(--max-font-size)) !important; /* Usa min() para limitar el crecimiento */
+      left: 1046.272px;
+    }
+  
+    .software-designer {
+      font-size: min(2vw, var(--text-max-size)) !important;;
+      width: 40%;
+      max-width: 600px; /* Limitar el ancho máximo */
+    }
+  
+    .main-container-about .span-isaac-montano {
+      font-size: min(3.5vw, var(--subtitle-max-size)) !important;
+      max-width: 50vw;
+    }
+  
+    /* Convertir tamaños de texto fijos a relativos pero limitados */
+    .languages,
+    .software,
+    .adobe-expert,
+    .figma-expert,
+    .html-css-js-expert, .span-info {
+      font-size: min(1.2vw, 24px) !important;
+    }
+  
+    .span-multimedia-design {
+      font-size: min(1.2vw, 40px) !important;
+      max-width: 50vw;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 1600px) {
+  .projects {
+      font-size: min(3vw, 40px); /* Ajustar para que no baje demasiado */
+  }
+
+  .project-title {
+      font-size: min(2.5vw, 28px); /* Evitar que sea demasiado pequeña */
+  }
+
+  .project-description {
+      font-size: min(1.5vw, 22px); /* Tamaño legible */
+  }
+}
