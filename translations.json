@@ -113,7 +113,9 @@
         "behanceUrl": "https://kazubaro.itch.io/dungeon-cards"
       }
     },
-        "clickToLoad": "Click to load Figma prototype"
+        "clickToLoad": "Click to load Figma prototype",
+
+    "marqueeWords": ["UX DESIGNER", "AI", "UI", "FIGMA", "ETHICS"]
 
   },
   "es": {
@@ -229,7 +231,9 @@
         "image": "./assets/Additional/Dungeon.png",
         "behanceUrl": "https://kazubaro.itch.io/dungeon-cards"
       }
-    }
+    },
+    "clickToLoad": "Haz clic para cargar el prototipo de Figma",
 
+    "marqueeWords": ["DISEÑADOR UX", "IA", "UI", "FIGMA", "ÉTICA"]
   }
 }

@@ -33,9 +33,9 @@
         <nav>
           <ul>
             <li><a href="#home" data-i18n="home">Home</a></li>
+            <li><a href="#projects" data-i18n="projects1">Projects</a></li>
             <li><a href="#about" data-i18n="about">About</a></li>
             <li><a href="#experience" data-i18n="experience">Experience</a></li>
-            <li><a href="#projects" data-i18n="projects1">Projects</a></li>
             <li class="hide-on-mobile"><a href="additional-projects.html" data-i18n="additionalProjects1">Additional Projects</a></li>
             <li><a href="#contact" data-i18n="contact">Contact me</a></li>
             <li class="language-selector">
@@ -61,6 +61,35 @@
         </div>
       </section>
 
+       <!-- Carousel-words Section -->
+      <div class="marquee-section">
+        <div class="marquee-track" id="marqueeTrack"></div>
+      </div>
+
+      <!-- Projects Section -->
+      <section id="projects" class="projects-section">
+        <div class="main-container-projects">
+          <div class="flex-column-afb">
+            <span class="projects" data-i18n="projectsTitle">Projects</span>
+            <span class="project-title" data-project-id="CloudTrack">CloudTrack - GDO</span>
+            <span class="project-title" data-project-id="RitualOfMadness">Ritual of Madness</span>
+            <span class="project-title" data-project-id="EditorialDesign">Editorial Design</span>
+            <span class="project-title" data-project-id="Fitmate">Fitmate</span>
+            <span class="project-title" data-project-id="SignalChase">Signal Chase</span>
+            <span class="project-title" data-project-id="IntuRedesign">Intu Redesign</span>
+            <span class="project-title" data-project-id="UruguayBranding">Uruguay Branding</span>
+          </div>
+          <div class="flex-column">
+            <h3 class="current-project-title"></h3>
+            <div class="image"></div>
+            <span class="project-description"></span>
+            <a href="#" class="behance-button" target="_blank" data-i18n="viewOnBehance">Ver en Behance</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
       <!-- About Section (versión de escritorio) -->
       <section id="about" class="about-section desktop-only">
         <div class="main-container-about">
@@ -68,9 +97,8 @@
           <div class="background">
             <span class="kazura-collins">Kazura Collins</span>
             <div class="circles"></div>
-            <span class="span-2024">2025</span>
             <span class="span-isaac-montano" data-i18n="whoIsIsaac">Who's Isaac Montaño?</span>
-            <span class="span-info">08/08/2003 · Colombian<br /></span>
+            <span class="span-info">Cali · Colombia UTC-5<br /></span>
             <span class="span-multimedia-design" data-i18n="multimediaDesigner">MULTIMEDIA DESIGNER · UX DESIGNER · VIDEO EDITOR</span>
             <span class="software-designer" data-i18n="softwareDesigner">
               I'm a software designer and developer focused on interactive applications. <br /><br />
@@ -102,7 +130,7 @@
         <div class="main-container-about-mobile">
           <h2>Kazura Collins</h2>
           <h3 data-i18n="whoIsIsaac">Who's Isaac Montaño?</h3>
-          <p>08/08/2003 · Colombian</p>
+          <p>Cali · Colombia UTC-5</p>
           <p data-i18n="multimediaDesigner">MULTIMEDIA DESIGNER · UX DESIGNER · VIDEO EDITOR</p>
           <p data-i18n="softwareDesigner">I'm a software designer and developer focused on interactive applications. I specialize in innovative technological solutions that enhance the user experience, balancing functionality and aesthetics. I also manage projects with efficiency and attention to detail, adapting quickly to new tools.</p>
           
@@ -168,36 +196,6 @@ Internal tools and clear communication in high-demand settings.</p>
           <button id="openCVButton" class="cv-button" data-i18n="checkCV">Check my CV</button>
         </div>
         <img src="assets/images/down.png" alt="Borde inferior" class="experience-border bottom">
-      </section>
-
-      <!-- Projects Section -->
-      <section id="projects" class="projects-section">
-        <div class="main-container-projects">
-          <div class="flex-column-afb">
-            <span class="projects">Projects</span>
-            <span class="project-title">CloudTrack - GDO</span>
-            <span class="project-title">Ritual of Madness</span>
-            <span class="project-title">Editorial Design</span>
-            <span class="project-title">Fitmate</span>
-            <span class="project-title">Signal Chase</span>
-            <span class="project-title">Intu Redesign</span>
-            <span class="project-title">Uruguay Branding</span>
-          </div>
-          <div class="flex-column">
-            <h3 class="current-project-title"></h3>
-            <div class="image"></div>
-            <span class="project-description">
-              Project description lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-              lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-              ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-              lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-              <br /><br />Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-              ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-              lorem ipsum lorem ipsum lorem ipsum
-            </span>
-            <a href="#" class="behance-button" target="_blank" data-i18n="viewOnBehance">Ver en Behance</a>
-          </div>
-        </div>
       </section>
 
       <!-- Contact Section -->

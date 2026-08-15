@@ -45,12 +45,17 @@ const cvFiles = {
       }
     });
 
-    const projectTitles = document.querySelectorAll('.project-title');
-    const currentProjectTitle = document.querySelector('.current-project-title');
-    const projectImage = document.querySelector('.image');
-    const projectDescription = document.querySelector('.project-description');
-    const behanceButton = document.querySelector('.behance-button');
+    const projectsSection = document.getElementById('projects');
+    const projectTitles = projectsSection.querySelectorAll('.project-title');
+    const currentProjectTitle = projectsSection.querySelector('.current-project-title');
+    const projectImage = projectsSection.querySelector('.image');
+    const projectDescription = projectsSection.querySelector('.project-description');
+    const behanceButton = projectsSection.querySelector('.behance-button');
     let currentIndex = 0;
+    let isProjectAnimating = false;
+    let pendingProjectUpdate = null;
+    const projectTransitionMs = 450;
+    const projectRevealMs = 700;
 
     const projects = [
       { 
@@ -128,68 +133,122 @@ const cvFiles = {
       }
     }
 
-    function updateProject(index, shouldScroll = false) {
-      const projectContent = document.querySelector('.flex-column');
+    function updateSidebarTitles(lang) {
+      if (!translations) {
+        return;
+      }
+
+      projectTitles.forEach((titleEl, i) => {
+        const project = projects[i];
+        const projectTranslation = translations[lang]?.projects?.[project.id];
+
+        if (projectTranslation) {
+          titleEl.textContent = projectTranslation.title;
+        }
+      });
+    }
+
+    function updateProject(index, shouldScroll = false, skipAnimation = false) {
+      const projectContent = projectsSection.querySelector('.flex-column');
       const currentLang = localStorage.getItem('language') || 'en';
       updateCV(currentLang);
-      
-      // Fade out
-      projectContent.classList.add('fade-out');
-      
-      setTimeout(() => {
+
+      const applyProjectContent = () => {
         const project = projects[index];
-        const projectTranslation = translations[currentLang].projects[project.id];
-        
-        if (projectTranslation) {
-          currentProjectTitle.textContent = projectTranslation.title;
-          projectImage.style.backgroundImage = `url(${project.image})`;
-          projectDescription.textContent = projectTranslation.description;
-          behanceButton.href = project.behanceUrl;
-        } else {
-          console.error(`Translation not found for project: ${project.id}`);
+
+        projectImage.style.backgroundImage = `url(${project.image})`;
+        behanceButton.href = project.behanceUrl;
+
+        if (translations) {
+          const projectTranslation = translations[currentLang].projects[project.id];
+
+          if (projectTranslation) {
+            currentProjectTitle.textContent = projectTranslation.title;
+            projectDescription.textContent = projectTranslation.description;
+          } else {
+            console.error(`Translation not found for project: ${project.id}`);
+          }
+
+          updateSidebarTitles(currentLang);
         }
-        
-        // Actualizar clase activa
+
         projectTitles.forEach((title, i) => {
+          title.classList.remove('is-switching');
           if (i === index) {
             title.classList.add('active');
+            if (!skipAnimation) {
+              title.classList.add('is-switching');
+            }
           } else {
             title.classList.remove('active');
           }
         });
+      };
 
-        // Fade in
-        setTimeout(() => {
-          projectContent.classList.remove('fade-out');
-          projectContent.classList.add('fade-in');
-        }, 50);
+      const scrollToProjectTitle = () => {
+        const title = currentProjectTitle;
+        if (!title) {
+          return;
+        }
 
-        // Scroll suave a la sección de proyectos en dispositivos móviles solo si se hizo clic
+        const header = document.querySelector('.header');
+        const headerHeight = header ? header.getBoundingClientRect().height : 0;
+        const paddingTop = 10;
+        const targetY = title.getBoundingClientRect().top + window.pageYOffset - headerHeight - paddingTop;
+
+        window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+      };
+
+      const finishTransition = () => {
         if (shouldScroll && window.innerWidth <= 768) {
-          setTimeout(() => {
-            const projectsSection = document.getElementById('projects');
-            const yOffset = -50; // Ajusta este valor para subir más o menos
-            const y = projectsSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-
-            window.scrollTo({top: y, behavior: 'smooth'});
-          }, 100);
+          setTimeout(scrollToProjectTitle, 120);
         }
 
         clearInterval(autoChangeInterval);
         startAutoChange(shouldScroll ? extendedInterval : normalInterval);
-      }, 500); // Este tiempo debe coincidir con la duración de la transición en CSS
+      };
+
+      if (skipAnimation) {
+        applyProjectContent();
+        finishTransition();
+        return;
+      }
+
+      if (isProjectAnimating && !skipAnimation) {
+        pendingProjectUpdate = { index, shouldScroll };
+        return;
+      }
+
+      pendingProjectUpdate = null;
+
+      isProjectAnimating = true;
+      projectContent.classList.remove('is-revealing');
+      projectContent.classList.add('is-changing');
+
+      setTimeout(() => {
+        applyProjectContent();
+        projectContent.classList.remove('is-changing');
+        projectContent.classList.add('is-revealing');
+
+        setTimeout(() => {
+          projectContent.classList.remove('is-revealing');
+          isProjectAnimating = false;
+
+          if (pendingProjectUpdate) {
+            const pending = pendingProjectUpdate;
+            pendingProjectUpdate = null;
+            updateProject(pending.index, pending.shouldScroll);
+          }
+        }, projectRevealMs);
+
+        finishTransition();
+      }, projectTransitionMs);
     }
 
     function nextProject() {
       currentIndex = (currentIndex + 1) % projects.length;
       updateProject(currentIndex, false);
     }
-
-    // Iniciar con el primer proyecto
-    updateProject(0);
-
-    // Iniciar el cambio automático con el intervalo normal
-    startAutoChange(normalInterval);
 
     // Permitir clic en los títulos para cambiar manualmente
     projectTitles.forEach((title, index) => {
@@ -208,6 +267,7 @@ const cvFiles = {
         const lang = localStorage.getItem('language') || 'en';
         changeLanguage(lang);
         document.getElementById('languageSelector').value = lang;
+        startAutoChange(normalInterval);
       })
       .catch(error => console.error('Error cargando las traducciones:', error));
 
@@ -223,7 +283,110 @@ const cvFiles = {
       localStorage.setItem('language', lang);
       
       // Actualizar el proyecto actual con el nuevo idioma
-      updateProject(currentIndex);
+      updateProject(currentIndex, false, true);
+
+      // Actualizar el carrusel de texto (marquee) con el nuevo idioma
+      renderMarquee(lang);
+    }
+
+    // Genera el carrusel de texto a partir de las palabras del JSON.
+    // Para AÑADIR o QUITAR palabras: edita el array "marqueeWords"
+    // dentro de translations.json (en cada idioma), no aquí.
+    function renderMarquee(lang) {
+      const track = document.getElementById('marqueeTrack');
+      if (!track || !translations || !translations[lang]) {
+        return;
+      }
+
+      const words = translations[lang].marqueeWords || [];
+      if (words.length === 0) {
+        return;
+      }
+
+      // Se duplica la lista una vez para que el loop sea infinito
+      // sin que se note el corte (se recorre la mitad del ancho total)
+      const buildItems = () => words
+        .map(word => `<span class="marquee-item">${word}<span class="dot">•</span></span>`)
+        .join('');
+
+      track.innerHTML = buildItems() + buildItems();
+
+      // Recalcular el ancho de "una vuelta" para el loop.
+      // Se usa requestAnimationFrame para asegurar que el navegador ya
+      // pintó el nuevo contenido y scrollWidth sea correcto.
+      requestAnimationFrame(() => {
+        marqueeHalfWidth = track.scrollWidth / 2;
+        // Si la posición actual quedó fuera del nuevo ancho (ej. cambiaste
+        // de idioma y el texto es más corto), la ajustamos sin que salte
+        // visualmente de golpe.
+        if (marqueeHalfWidth > 0) {
+          marqueePosition = marqueePosition % marqueeHalfWidth;
+        }
+      });
+
+      startMarqueeLoop();
+    }
+
+    // ============================================
+    // MOTOR DEL CARRUSEL — controla la velocidad manualmente por JS
+    // en vez de usar @keyframes, para poder desacelerar suavemente en
+    // hover sin que el carrusel "salte" o reinicie su posición.
+    // ============================================
+    const marqueeNormalSpeed = 90;   // <-- VELOCIDAD normal, en píxeles por segundo
+    const marqueeHoverSpeed = 25;    // <-- VELOCIDAD al pasar el mouse (más lento, no pausado)
+    const marqueeEasing = 4;         // <-- qué tan rápido se ajusta la velocidad al entrar/salir del hover (más alto = transición más corta)
+
+    let marqueeCurrentSpeed = marqueeNormalSpeed;
+    let marqueeTargetSpeed = marqueeNormalSpeed;
+    let marqueePosition = 0;
+    let marqueeHalfWidth = 0;
+    let marqueeLastTimestamp = null;
+    let marqueeLoopStarted = false;
+
+    function marqueeLoop(timestamp) {
+      const track = document.getElementById('marqueeTrack');
+
+      if (marqueeLastTimestamp === null) {
+        marqueeLastTimestamp = timestamp;
+      }
+      const deltaSeconds = (timestamp - marqueeLastTimestamp) / 1000;
+      marqueeLastTimestamp = timestamp;
+
+      if (track && marqueeHalfWidth > 0) {
+        // Interpola suavemente la velocidad actual hacia la velocidad objetivo
+        marqueeCurrentSpeed += (marqueeTargetSpeed - marqueeCurrentSpeed) * Math.min(deltaSeconds * marqueeEasing, 1);
+
+        marqueePosition -= marqueeCurrentSpeed * deltaSeconds;
+
+        // Cuando recorrimos "una vuelta" completa, la sumamos de vuelta
+        // para que el loop sea infinito sin saltos
+        if (marqueePosition <= -marqueeHalfWidth) {
+          marqueePosition += marqueeHalfWidth;
+        }
+
+        track.style.transform = `translateX(${marqueePosition}px)`;
+      }
+
+      requestAnimationFrame(marqueeLoop);
+    }
+
+    function startMarqueeLoop() {
+      if (marqueeLoopStarted) {
+        return;
+      }
+      marqueeLoopStarted = true;
+
+      const marqueeSection = document.querySelector('.marquee-section');
+      if (marqueeSection) {
+        marqueeSection.addEventListener('mouseenter', () => {
+          marqueeTargetSpeed = marqueeHoverSpeed;
+        });
+        marqueeSection.addEventListener('mouseleave', () => {
+          marqueeTargetSpeed = marqueeNormalSpeed;
+        });
+      }
+
+      requestAnimationFrame(marqueeLoop);
     }
 
     // Evento para cambiar el idioma

@@ -138,3 +138,87 @@ html {
 .menu-toggle {
   display: none;
 }
+
+/* ============================================
+   CARRUSEL DE TEXTO (MARQUEE) — "UX DESIGNER · AI · UI · FIGMA · ETHICS"
+   ============================================ */
+
+/* Contenedor: aquí cambias el FONDO del carrusel y los bordes */
+.marquee-section {
+  width: 100%;
+  overflow: hidden;
+  background-color: #000;                 /* <-- COLOR DE FONDO */
+  border-top: 1px solid #fff;              /* <-- borde superior (opcional, quítalo si no lo quieres) */
+  border-bottom: 1px solid #fff;           /* <-- borde inferior */
+  padding: 18px 0;                         /* <-- alto del carrusel */
+  margin-top: 120px;                       /* <-- DISTANCIA respecto al #home en ESCRITORIO */
+    /* Fade en los extremos */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+}
+
+/* Pista que se mueve. La duplicamos por JS para loop infinito sin cortes */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+
+/* Cada palabra: aquí cambias TIPOGRAFÍA, TAMAÑO y COLOR DEL TEXTO */
+.marquee-item {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: 'Segoe UI', sans-serif;     /* <-- TIPOGRAFÍA */
+  font-size: 36px;                         /* <-- TAMAÑO */
+  font-weight: 700;                        /* <-- GROSOR */
+  letter-spacing: 2px;
+  color: #fff;                             /* <-- COLOR DEL TEXTO */
+  padding: 0 40px;
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
+}
+.marquee-section:hover .marquee-item {
+  opacity: 0.45;
+}
+.marquee-section .marquee-item:hover {
+  opacity: 1;
+}
+
+/* El separador entre palabras (el punto •) */
+.marquee-item .dot {
+  margin-left: 40px;
+  color: #666;
+  font-size: 14px;
+  transform: translateY(-2px);
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Responsive: texto más chico en móvil */
+@media (max-width: 768px) {
+  .marquee-item {
+    font-size: 26px;                       /* <-- TAMAÑO EN MÓVIL */
+    padding: 0 24px;
+  }
+  .marquee-item .dot {
+    margin-left: 24px;
+  }
+}
+ 

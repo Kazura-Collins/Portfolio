@@ -1,4 +1,4 @@
-@media (max-width: 768px) {
+@media (max-width: 748px) {
   body {
     overflow-x: hidden; /* Evita que el contenido se salga horizontalmente */
   }
@@ -85,6 +85,10 @@
 
   #home .main-container-home {
     padding: 0;
+  }
+
+  .marquee-section {
+    margin-top: 20px;                      /* <-- DISTANCIA respecto al #home en MÓVIL (más cerca) */
   }
 
   .portfolio-image {
@@ -231,6 +235,29 @@
     width: 100%;
   }
 
+  #projects .projects {
+    font-size: 5.5vw;
+    margin-top: 16px;
+  }
+
+  #projects .project-title {
+    font-size: 3.2vw;
+  }
+
+  #projects .current-project-title {
+    font-size: 4vw;
+    margin-bottom: 12px;
+  }
+
+  #projects .project-description {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  #projects .behance-button {
+    font-size: 13px;
+  }
+
   /* Ocultar la versión de escritorio y mostrar la versión móvil */
   .desktop-only {
     display: none;
@@ -258,7 +285,7 @@
     bottom: -50%;
     width: 200%;
     height: 200%;
-    background: url(/assets/images/littlesatr.png) repeat;
+    background: url(../assets/images/lilstar.png) repeat;
     opacity: 0.5;
     z-index: 0;
     animation: rotating 120s linear infinite;
@@ -414,6 +441,26 @@
   #about .html-css-js-expert {
     font-size: 13px;
     margin-bottom: 3px;
+  }
+
+  #projects .projects {
+    font-size: 6vw;
+  }
+
+  #projects .project-title {
+    font-size: 3vw;
+  }
+
+  #projects .current-project-title {
+    font-size: 3.8vw;
+  }
+
+  #projects .project-description {
+    font-size: 13px;
+  }
+
+  #projects .behance-button {
+    font-size: 12px;
   }
 }
 

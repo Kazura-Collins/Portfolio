@@ -1,5 +1,5 @@
 #home {
-    height: 100vh;
+    height: 100vh; /*en 100vh se ve bien en pc, pero en mobile 80vh se ve mejor*/
     display: flex;
     justify-content: center;
     align-items: center;
